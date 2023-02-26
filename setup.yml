@@ -1,0 +1,6 @@
+- hosts: main
+  roles:
+    - essentials
+    - docker
+    # - mysql
+    - traefik
