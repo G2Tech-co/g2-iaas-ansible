@@ -4,3 +4,4 @@
     - docker
     # - mysql
     - traefik
+    - gitlab

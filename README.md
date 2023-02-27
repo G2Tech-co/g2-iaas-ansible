@@ -6,7 +6,7 @@
 - [x] docker
 - [ ] mysql
 - [x] traefik
-- [ ] Gitlab runner
+- [x] Gitlab runner
 
 ```
 python3 -m venv venv
