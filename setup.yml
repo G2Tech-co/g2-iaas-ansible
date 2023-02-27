@@ -1,7 +1,8 @@
 - hosts: main
   roles:
-    - essentials
-    - docker
-    # - mysql
+    # - essentials
+    # - docker
+    - mysql
     # - traefik
     # - gitlab
+    # - exporter

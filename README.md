@@ -7,6 +7,7 @@
 - [ ] mysql
 - [x] traefik
 - [x] Gitlab runner
+- [ ] Node exporter
 
 ```
 python3 -m venv venv
