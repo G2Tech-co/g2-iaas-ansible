@@ -1,7 +1,12 @@
-# Ansible IaaC
+# G2 Ansible IaC
 
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
+- [x] essentials
+- [x] docker
+- [ ] mysql
+- [x] traefik
+- [ ] Gitlab runner
 
 ```
 python3 -m venv venv
