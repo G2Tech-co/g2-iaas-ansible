@@ -3,5 +3,5 @@
     - essentials
     - docker
     # - mysql
-    - traefik
-    - gitlab
+    # - traefik
+    # - gitlab

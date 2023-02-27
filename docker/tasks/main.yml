@@ -1,7 +1,7 @@
 - name: install docker
   ansible.builtin.apt:
     update_cache: yes
-    name: docker
+    name: docker.io
     state: present
   notify: restart docker
 
@@ -28,11 +28,9 @@
     state: started
     enabled: yes
 
-- name: docker sdk  # Needed for checkmk Docker integration
-  ansible.builtin.apt:
-    update_cache: yes
-    name: python-docker
-    state: present
+- name: Install Docker Module for Python
+  pip:
+    name: docker
 
 - name: install docker-compose
   ansible.builtin.apt:
@@ -41,5 +39,4 @@
     state: present
   notify: restart docker
 
-# alternative way to install docker-compose
 #- include_tasks: docker-compose.yml

@@ -5,6 +5,7 @@
       - git
       - htop
       - iotop
-      - lm_sensors
+      - lm-sensors
       - smartmontools
+      - python3-pip
     state: present
