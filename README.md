@@ -2,10 +2,11 @@
 
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
-- [x] essentials
-- [x] docker
-- [x] mysql
-- [x] traefik
+- [x] Essentials
+- [ ] Swap
+- [x] Docker
+- [x] MySQL
+- [x] Traefik
 - [x] Gitlab runner
 - [x] Node exporter
 - [x] Redis

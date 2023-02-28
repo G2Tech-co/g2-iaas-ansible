@@ -1,0 +1,3 @@
+swap_vars:
+  size: 2G
+  swappiness: 60

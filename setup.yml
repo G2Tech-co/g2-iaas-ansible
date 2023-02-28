@@ -6,4 +6,5 @@
     # - traefik
     # - gitlab
     # - node-exporter
-    - redis
+    # - redis
+    - swap
