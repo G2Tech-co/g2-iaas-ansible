@@ -7,7 +7,7 @@
 - [x] mysql
 - [x] traefik
 - [x] Gitlab runner
-- [ ] Node exporter
+- [x] Node exporter
 - [ ] Redis
 
 ```

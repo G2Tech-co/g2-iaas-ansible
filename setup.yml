@@ -2,7 +2,7 @@
   roles:
     # - essentials
     # - docker
-    - mysql
+    # - mysql
     # - traefik
     # - gitlab
-    # - exporter
+    - node-exporter
