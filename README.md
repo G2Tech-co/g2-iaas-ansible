@@ -8,7 +8,7 @@
 - [x] traefik
 - [x] Gitlab runner
 - [x] Node exporter
-- [ ] Redis
+- [x] Redis
 
 ```
 python3 -m venv venv

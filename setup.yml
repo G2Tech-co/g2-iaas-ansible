@@ -5,4 +5,5 @@
     # - mysql
     # - traefik
     # - gitlab
-    - node-exporter
+    # - node-exporter
+    - redis
