@@ -1,10 +1,11 @@
 - hosts: main
   roles:
-    # - essentials
-    # - docker
-    # - mysql
-    # - traefik
-    # - gitlab
-    # - node-exporter
-    # - redis
+    - essentials
     - swap
+    - docker
+    - traefik
+    - mysql
+    - redis
+    - node-exporter
+    - gitlab
+    - reboot

@@ -1,6 +1,11 @@
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: yes
+
 - name: install packages
   ansible.builtin.apt:
-    update_cache: yes
     name:
       - git
       - htop
