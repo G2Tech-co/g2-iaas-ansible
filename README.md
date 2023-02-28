@@ -4,7 +4,7 @@
 
 - [x] essentials
 - [x] docker
-- [ ] mysql
+- [x] mysql
 - [x] traefik
 - [x] Gitlab runner
 - [ ] Node exporter

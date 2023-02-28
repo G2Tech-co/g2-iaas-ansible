@@ -4,36 +4,32 @@
     image: mysql:8.0-debian
     recreate: true
     restart_policy: always
-    restart_retries: 5
     pull: true
     volumes:
       - "{{ mysql_volume }}:/var/lib/mysql"
     networks:
       - name: "{{ mysql_network }}"
-        aliases:
-          - mysql
-          - db
     published_ports:
       - "127.0.0.1:33306:3306"
     labels:
       traefik.enable: "false"
     env:
       TZ: "{{ mysql_timezone }}"
-      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
-      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_timezone }}"
       MYSQL_USER: "{{ mysql_user }}"
       MYSQL_PASSWORD: "{{ mysql_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       interval: 1m30s
       timeout: 10s
       retries: 3
       start_period: 30s
-    device_read_bps:
-      # Limit read rate for /dev/sda to 20 mebibytes per second
-      - path: /dev/sda
-        rate: 20M
-    device_read_iops:
-      # Limit read rate for /dev/sdb to 300 IO per second
-      - path: /dev/sdb
-        rate: 300
+    # device_read_bps:
+    #   # Limit read rate for /dev/sda to 20 mebibytes per second
+    #   - path: /dev/vda1
+    #     rate: 20M
+    # device_read_iops:
+    #   # Limit read rate for /dev/sdb to 300 IO per second
+    #   - path: /dev/vdb
+    #     rate: 300
