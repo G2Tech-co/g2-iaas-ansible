@@ -3,7 +3,7 @@
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 - [x] Essentials
-- [ ] Swap
+- [x] Swap
 - [x] Docker
 - [x] MySQL
 - [x] Traefik
