@@ -24,3 +24,11 @@ ansible-playbook setup.yml
 ```
 ansible-vault encrypt_string --name 'password_name'
 ```
+
+```
+Change these defaults
+Swap: 2G
+Traefik: auth
+MySQL: auth
+Redis: auth
+```

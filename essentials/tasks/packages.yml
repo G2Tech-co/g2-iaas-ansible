@@ -2,15 +2,39 @@
   become: true
   apt:
     update_cache: yes
-    upgrade: yes
+    upgrade: full
 
 - name: install packages
   ansible.builtin.apt:
     name:
-      - git
-      - htop
-      - iotop
-      - lm-sensors
+      - software-properties-common
+      - apt-transport-https
+      - build-essential
+      - ca-certificates
       - smartmontools
       - python3-pip
+      - lm-sensors
+      - iotop
+      - htop
+      - curl
+      - git
     state: present
+    update_cache: yes
+    allow_unauthenticated: yes
+
+- name: Update pip
+  pip:
+    name:
+      - pip
+    state: latest
+
+- name: Install pip dependencies
+  pip:
+    name: 
+    - python-gitlab<=1.12.1
+    - virtualenv
+    - setuptools
+
+- name: Configure timezone
+  timezone:
+    name: "{{ timezone }}"

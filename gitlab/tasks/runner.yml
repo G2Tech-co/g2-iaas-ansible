@@ -1,3 +1,6 @@
+- name: Add the GitLab package repository
+  shell: "curl -L 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh' | sudo bash"
+
 - name: install packages
   ansible.builtin.apt:
     update_cache: yes
