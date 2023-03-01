@@ -1,4 +1,4 @@
-# G2 Ansible IaC
+# G2 Ansible IaC (Infrastructure as code)
 
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
