@@ -1,6 +1,6 @@
 - name: Launch mysql database container
   docker_container:
-    name: db
+    name: mysql
     image: mysql:8.0-debian
     recreate: true
     restart_policy: always
@@ -9,6 +9,8 @@
       - "{{ mysql_volume }}:/var/lib/mysql"
     networks:
       - name: "{{ mysql_network }}"
+        aliases:
+            - db
     published_ports:
       - "127.0.0.1:33306:3306"
     labels:

@@ -33,3 +33,6 @@ Traefik: auth
 MySQL: auth
 Redis: auth
 ```
+
+# TODOs
+- [ ] Limit ram & cpu
