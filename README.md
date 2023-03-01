@@ -21,6 +21,7 @@ pip install -r requirements.txt
 ```
 
 ## Run
+Add ssh config host name to `hosts`
 ```
 ansible-playbook setup.yml
 ```
@@ -45,5 +46,5 @@ Redis: auth
 ### Testing
 ```
 docker -H ssh://ansib exec -it mysql mysql -u <username> -p <database>
-docker -H ssh://ansib exec -it redis redis-cli -a 'password'
+docker -H ssh://ansib exec -it redis redis-cli -p 6379 -a 'password' ping
 ```
