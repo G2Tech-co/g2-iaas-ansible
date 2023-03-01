@@ -2,7 +2,7 @@
 
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
-# Roles
+## Roles
 - [x] Essentials
 - [x] Swap
 - [x] Docker
@@ -13,24 +13,24 @@
 - [x] Gitlab runner
 - [x] Reboot
 
-# Setup
+## Setup
 ```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# Run
+## Run
 ```
 ansible-playbook setup.yml
 ```
 
-# Vault
+## Vault
 ```
 ansible-vault encrypt_string --name 'password_name'
 ```
 
-# Defaults
+## Defaults
 ```
 Swap: 2G
 Traefik: auth
@@ -38,6 +38,12 @@ MySQL: auth
 Redis: auth
 ```
 
-# TODOs
+## TODOs
 - [ ] Limit containers ram & cpu
 - [ ] Disaster recovery plan
+
+### Testing
+```
+docker -H ssh://ansib exec -it mysql mysql -u <username> -p <database>
+docker -H ssh://ansib exec -it redis redis-cli -a 'password'
+```
