@@ -5,11 +5,12 @@
 - [x] Essentials
 - [x] Swap
 - [x] Docker
-- [x] MySQL
 - [x] Traefik
-- [x] Gitlab runner
-- [x] Node exporter
+- [x] MySQL
 - [x] Redis
+- [x] Node exporter
+- [x] Gitlab runner
+- [x] Reboot
 
 ```
 python3 -m venv venv
