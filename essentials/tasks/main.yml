@@ -4,14 +4,14 @@
     regexp: "^#?PasswordAuthentication"
     line: "PasswordAuthentication no"
     state: present
-  notify: restart ssh
+#   notify: restart ssh
 
 - name: Set SSH port
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^Port"
-    line: "Port {{sshd_port}}"
+    line: "Port {{ sshd_port }}"
     state: present
-  notify: restart ssh
+#   notify: restart ssh
 
 - include_tasks: packages.yml
