@@ -1,1 +1,2 @@
 timezone: "Asia/Tehran"
+sshd_port: 22
