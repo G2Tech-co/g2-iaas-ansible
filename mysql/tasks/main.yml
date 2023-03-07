@@ -1,1 +1,2 @@
-- include_tasks: mysql.yml
+- name: Include mysql tasks
+  ansible.builtin.include_tasks: mysql.yml

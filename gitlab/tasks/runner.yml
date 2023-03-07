@@ -1,23 +1,30 @@
-- name: Add the GitLab package repository
-  shell: "curl -L 'https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh' | sudo bash"
+- name: Download file from a file path
+  ansible.builtin.get_url:
+    url: https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh
+    dest: /tmp/script.deb.sh
+    mode: '555'
 
-- name: install packages
+- name: Add the GitLab package repository
+  ansible.builtin.command: "bash /tmp/script.deb.sh"
+  changed_when: true
+
+- name: Install packages
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name:
       - gitlab-runner
     state: present
 
-- name: add gitlab-runner to docker group
+- name: Add gitlab-runner to docker group
   ansible.builtin.user:
     name: gitlab-runner
     groups: docker
 
-- name: ensure runner is started and enabled at boot
+- name: Ensure runner is started and enabled at boot
   ansible.builtin.systemd:
     name: gitlab-runner
     state: started
-    enabled: yes
+    enabled: true
 
 # - name: Register gitlab shell runner
 #   command: |

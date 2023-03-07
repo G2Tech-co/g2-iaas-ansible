@@ -1,32 +1,38 @@
-- name: Check whether "/swapfile" exists
-  register: idCheckSwap
-  stat:
-    path: /swapfile
+- name: Check whether "/swapfile1" exists
+  register: id_check_swap
+  ansible.builtin.stat:
+    path: /swapfile1
 
-- name: Fail it if "/swapfile" exists
-  fail:
+- name: Fail it if "/swapfile1" exists
+  ansible.builtin.fail:
     msg: Swap file exists
-  when: idCheckSwap.stat.exists == true
+  when: id_check_swap.stat.exists
 
 - name: Allocate the swap file
-  shell: fallocate -l {{ swap_vars.size }} /swapfile
+  ansible.builtin.command: fallocate -l {{ swap_vars.size }} /swapfile1
+  changed_when: true
 
 - name: Change permission of the swap file
-  file:
-    path: /swapfile
-    mode: 600
+  ansible.builtin.file:
+    path: /swapfile1
+    mode: "600"
 
 - name: Create a swap area on the swap file
-  shell: mkswap /swapfile
+  ansible.builtin.command: mkswap /swapfile1
+  changed_when: true
 
 - name: Activate the swap file as a swap memory
-  shell: swapon /swapfile
+  ansible.builtin.command: swapon /swapfile1
+  changed_when: true
 
 - name: Append configuration in /etc/fstab
-  shell: echo "\n/swapfile swap swap defaults 0 0\n" >> /etc/fstab
+  ansible.builtin.command: echo "\n/swapfile1 swap swap defaults 0 0\n" >> /etc/fstab
+  changed_when: true
 
 - name: Set swappiness level
-  shell: sysctl vm.swappiness={{ swap_vars.swappiness }}
+  ansible.builtin.command: sysctl vm.swappiness={{ swap_vars.swappiness }}
+  changed_when: true
 
 - name: Append configuration in /etc/sysctl.conf
-  shell: echo "\nvm.swappiness={{ swap_vars.swappiness }}\n" >> /etc/sysctl.conf
+  ansible.builtin.command: echo "\nvm.swappiness={{ swap_vars.swappiness }}\n" >> /etc/sysctl.conf
+  changed_when: true

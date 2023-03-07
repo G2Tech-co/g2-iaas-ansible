@@ -1,6 +1,6 @@
-- name: install docker
+- name: Install docker
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name: docker.io
     state: present
   notify: restart docker
@@ -13,7 +13,7 @@
     group: root
     mode: '755'
 
-- name: daemon.json
+- name: Daemon.json
   ansible.builtin.copy:
     src: files/daemon.json
     dest: /etc/docker/daemon.json
@@ -22,21 +22,22 @@
     mode: '644'
   notify: restart docker
 
-- name: ensure Docker is started and enabled at boot
+- name: Ensure Docker is started and enabled at boot
   ansible.builtin.systemd:
     name: docker
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Install Docker Module for Python
-  pip:
+  ansible.builtin.pip:
     name: docker
 
-- name: install docker-compose
+- name: Install docker-compose
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name: docker-compose
     state: present
   notify: restart docker
 
-#- include_tasks: docker-compose.yml
+# - name: Include docker-compose tasks
+#   ansible.builtin.include_tasks: docker-compose.yml

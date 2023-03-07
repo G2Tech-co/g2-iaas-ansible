@@ -1,11 +1,12 @@
 - name: Reboot machine to finalize setup
-  shell: "sleep 5 && reboot"
+  ansible.builtin.command: "sleep 5 && reboot"
+  changed_when: true
   async: 1
   poll: 0
 
 - name: Wait for the reboot to complete
-  wait_for_connection:
+  ansible.builtin.wait_for_connection:
     connect_timeout: 20
+    timeout: 300
     sleep: 5
     delay: 5
-    timeout: 300

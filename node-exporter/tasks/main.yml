@@ -1,12 +1,12 @@
-- name: install node-exporter
-  docker_container:
+- name: Install node-exporter
+  community.docker.docker_container:
     name: node-exporter
     image: prom/node-exporter:latest
     restart_policy: unless-stopped
     network_mode: bridge
     exposed_ports: 9100
     published_ports:
-     - 0.0.0.0:9100:9100
+      - 0.0.0.0:9100:9100
     recreate: true
     pull: true
     volumes:

@@ -1,10 +1,10 @@
 - name: Update and upgrade apt packages
   become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     upgrade: full
 
-- name: install packages
+- name: Install packages
   ansible.builtin.apt:
     name:
       - software-properties-common
@@ -19,22 +19,22 @@
       - curl
       - git
     state: present
-    update_cache: yes
-    allow_unauthenticated: yes
+    update_cache: true
+    allow_unauthenticated: true
 
 - name: Update pip
-  pip:
+  ansible.builtin.pip:
     name:
       - pip
     state: latest
 
 - name: Install pip dependencies
-  pip:
-    name: 
-    - python-gitlab<=1.12.1
-    - virtualenv
-    - setuptools
+  ansible.builtin.pip:
+    name:
+      - python-gitlab<=1.12.1
+      - virtualenv
+      - setuptools
 
 - name: Configure timezone
-  timezone:
+  community.general.timezone:
     name: "{{ timezone }}"

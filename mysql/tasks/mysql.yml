@@ -1,5 +1,5 @@
 - name: Launch mysql database container
-  docker_container:
+  community.docker.docker_container:
     name: mysql
     image: mysql:8.0-debian
     recreate: true
@@ -10,7 +10,7 @@
     networks:
       - name: "{{ mysql_network }}"
         aliases:
-            - db
+          - db
     published_ports:
       - "127.0.0.1:33306:3306"
     labels:
