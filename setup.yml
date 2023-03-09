@@ -8,4 +8,5 @@
     - redis
     - node-exporter
     - gitlab
+    - database-backup-storage
     - reboot
