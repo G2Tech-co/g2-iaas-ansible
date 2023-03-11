@@ -13,4 +13,6 @@ mkdir $DEST
 
 nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p "mysql_password" --quick --lock-tables=false --ignore-table=telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup.gz
 
-ls -ltrh ~/db_backups/ | tail -n 1 | awk '{print $9}' | xargs rm -rf
+if [[ $(ls -1 ~/db_backups/ | wc -l) -gt 2 ]]; then
+    ls -ltrh ~/db_backups/ | tail -n 1 | awk '{print $9}' | xargs rm -rf
+fi
