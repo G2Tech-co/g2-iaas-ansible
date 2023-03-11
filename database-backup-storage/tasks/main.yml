@@ -1,3 +1,11 @@
+- name: Install mysqldump
+  ansible.builtin.apt:
+    name:
+      - mysql-client
+    state: present
+    update_cache: true
+    allow_unauthenticated: true
+
 - name: Install aws cli with pip
   ansible.builtin.pip:
     name:
