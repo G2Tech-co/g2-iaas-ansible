@@ -39,11 +39,3 @@
     hour: "3"
     user: root
     job: "/root/scripts/db_backup.sh > /dev/null 2>&1"
-
-- name: Add sync to crontab
-  ansible.builtin.cron:
-    name: sync backups with s3 storage
-    minute: "20"
-    hour: "3"
-    user: root
-    job: "/root/scripts/db_sync.sh > /dev/null 2>&1"
