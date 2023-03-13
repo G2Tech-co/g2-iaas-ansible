@@ -1,3 +1,13 @@
+- name: Download mc
+  ansible.builtin.get_url:
+    url: https://dl.min.io/client/mc/release/linux-amd64/mc
+    dest: ~/s3/mc
+    mode: '0755'
+
+- name: Set minio alias
+  ansible.builtin.command: ~/s3/mc alias set {{ ALIAS }} {{ S3_ENDPOINT }} {{ ACCESS_KEY }} {{ SECRET_KEY }}
+  changed_when: true
+
 - name: Install mysqldump
   ansible.builtin.apt:
     name:
@@ -5,27 +15,6 @@
     state: present
     update_cache: true
     allow_unauthenticated: true
-
-- name: Install aws cli with pip
-  ansible.builtin.pip:
-    name:
-      - awscli
-
-- name: ~/.aws directory
-  ansible.builtin.file:
-    path: ~/.aws
-    state: directory
-    owner: root
-    group: root
-    mode: '755'
-
-- name: Copy aws credentials
-  ansible.builtin.copy:
-    src: files/credentials
-    dest: ~/.aws/credentials
-    owner: root
-    group: root
-    mode: '644'
 
 - name: Backup script
   ansible.builtin.copy:

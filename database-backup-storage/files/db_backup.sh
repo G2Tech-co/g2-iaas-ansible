@@ -2,17 +2,18 @@
 
 set -x
 
-DIR=$(date -I)
-DEST=~/db_backups/$DIR
+DEST=~/db_backups
 DB_HOST="localhost"
 DB_PORT=33306
 DB_USER="root"
 DB_NAME="bms"
 
-mkdir $DEST
+mkdir -p $DEST
 
-nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p "mysql_password" --quick --lock-tables=false --ignore-table=telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup.gz
+nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p "mysql_password" --quick --ignore-table=telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup.gz
 
-if [[ $(ls -1 ~/db_backups/ | wc -l) -gt 2 ]]; then
-    ls -ltrh ~/db_backups/ | tail -n 1 | awk '{print $9}' | xargs rm -rf
-fi
+~/s3/mc cp $DEST/dbbackup.gz s3/backup/bms/dbbackup.gz
+
+~/s3/mc rm --older-than 60d s3/backup/bms/
+
+rm -rf ~/db_backups/

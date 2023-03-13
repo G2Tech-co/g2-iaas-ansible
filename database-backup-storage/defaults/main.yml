@@ -1,0 +1,4 @@
+S3_ENDPOINT: ""
+ACCESS_KEY: ""
+SECRET_KEY: ""
+ALIAS: "backup"
