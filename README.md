@@ -42,6 +42,7 @@ Redis: auth
 ## TODOs
 - [ ] Limit containers ram & cpu
 - [ ] Disaster recovery plan
+- [ ] Docker compose v2
 
 ### Testing
 ```
