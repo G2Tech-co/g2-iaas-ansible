@@ -43,3 +43,25 @@
     hour: "3"
     user: root
     job: "~/scripts/db_backup.sh > /dev/null 2>&1"
+
+- name: Services directory
+  ansible.builtin.file:
+    path: ~/db_backups
+    state: directory
+    mode: '700'
+
+- name: Touch mysqlpassword.cnf
+  ansible.builtin.file:
+    path: /etc/mysql/mysqlpassword.cnf
+    owner: root
+    group: root
+    mode: '600'
+    state: touch
+
+- name: Copy mysqlpassword.cnf
+  ansible.builtin.copy:
+    src: files/mysqlpassword.cnf
+    dest: /etc/mysql/mysqlpassword.cnf
+    owner: root
+    group: root
+    mode: '700'
