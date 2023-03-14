@@ -12,10 +12,10 @@ BUCKET_SUBDIR="sub"
 
 mkdir -p $DEST
 
-nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASS --ignore-table=$DB_NAME.telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup.gz
+nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASS --ignore-table=$DB_NAME.telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup-$(date -I).gz
 
-~/s3/mc cp $DEST/dbbackup.gz backup/g2-backup-dbs/$BUCKET_SUBDIR/dbbackup.gz
+~/s3/mc cp $DEST/dbbackup-$(date -I).gz backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
 ~/s3/mc rm --force --recursive --older-than 60d backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
-rm -rf ~/db_backups/
+rm -rf ~/db_backups
