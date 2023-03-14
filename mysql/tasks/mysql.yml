@@ -17,7 +17,7 @@
       traefik.enable: "false"
     env:
       TZ: "{{ mysql_timezone }}"
-      MYSQL_ROOT_PASSWORD: "{{ mysql_timezone }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
       MYSQL_USER: "{{ mysql_user }}"
       MYSQL_PASSWORD: "{{ mysql_password }}"
       MYSQL_DATABASE: "{{ mysql_database }}"
