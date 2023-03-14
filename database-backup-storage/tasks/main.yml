@@ -1,3 +1,9 @@
+- name: Services directory
+  ansible.builtin.file:
+    path: ~/s3
+    state: directory
+    mode: '700'
+
 - name: Download mc
   ansible.builtin.get_url:
     url: https://dl.min.io/client/mc/release/linux-amd64/mc
@@ -16,10 +22,16 @@
     update_cache: true
     allow_unauthenticated: true
 
+- name: Script directory
+  ansible.builtin.file:
+    path: ~/scripts
+    state: directory
+    mode: '700'
+
 - name: Backup script
   ansible.builtin.copy:
     src: files/db_backup.sh
-    dest: /root/scripts/db_backup.sh
+    dest: ~/scripts/db_backup.sh
     owner: root
     group: root
     mode: '700'
@@ -30,4 +42,4 @@
     minute: "01"
     hour: "3"
     user: root
-    job: "/root/scripts/db_backup.sh > /dev/null 2>&1"
+    job: "~/scripts/db_backup.sh > /dev/null 2>&1"
