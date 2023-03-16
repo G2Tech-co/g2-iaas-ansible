@@ -1,17 +1,33 @@
-- name: register current docker-compose version
-  ansible.builtin.shell: docker-compose --version | awk '{print $NF}'
+- name: Register current docker-compose version
+  ansible.builtin.command: docker-compose --version | awk '{print $NF}'
   register: docker_compose_current_version
+  changed_when: true
 
-- name: register latest version
-  ansible.builtin.shell: curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'
-  args:
-    warn: false
-  register: docker_compose_version
+# - name: register latest version
+#   ansible.builtin.command: curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'
+#   args:
+#     warn: false
+#   register: docker_compose_version
+#   changed_when: true
+
+- name: Get latest version info
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    body_format: json
+    return_content: yes
+    validate_certs: no
+  register: uri_output
+  failed_when: uri_output.json.tag_name is undefined
+
+- name: Print the docker compose latest version info when defined
+  ansible.builtin.debug:
+    msg: Output is {{ uri_output.json.tag_name }}
+  when: uri_output.json.tag_name is defined
 
 - name: install docker-compose
   ansible.builtin.get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version.stdout }}/docker-compose-Linux-x86_64
+    url: https://github.com/docker/compose/releases/download/{{ uri_output.json.tag_name }}/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: '755'
   when:
-    docker_compose_current_version.stdout != docker_compose_version.stdout
+    docker_compose_current_version.stdout != uri_output.json.tag_name

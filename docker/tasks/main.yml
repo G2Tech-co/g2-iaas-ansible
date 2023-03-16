@@ -39,5 +39,5 @@
     state: present
   notify: restart docker
 
-# - name: Include docker-compose tasks
-#   ansible.builtin.include_tasks: docker-compose.yml
+- name: Include docker-compose tasks
+  ansible.builtin.include_tasks: docker-compose.yml
