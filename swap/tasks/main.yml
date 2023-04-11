@@ -26,13 +26,13 @@
   changed_when: true
 
 - name: Append configuration in /etc/fstab
-  ansible.builtin.command: echo "\n/swapfile1 swap swap defaults 0 0\n" >> /etc/fstab
+  ansible.builtin.command: echo '/swapfile1 none swap sw 0 0' | sudo tee -a /etc/fstab
   changed_when: true
 
-- name: Set swappiness level
-  ansible.builtin.command: sysctl vm.swappiness={{ swap_vars.swappiness }}
-  changed_when: true
+# - name: Set swappiness level
+#   ansible.builtin.command: sysctl vm.swappiness={{ swap_vars.swappiness }}
+#   changed_when: true
 
-- name: Append configuration in /etc/sysctl.conf
-  ansible.builtin.command: echo "\nvm.swappiness={{ swap_vars.swappiness }}\n" >> /etc/sysctl.conf
-  changed_when: true
+# - name: Append configuration in /etc/sysctl.conf
+#   ansible.builtin.command: echo "\nvm.swappiness={{ swap_vars.swappiness }}\n" >> /etc/sysctl.conf
+#   changed_when: true
