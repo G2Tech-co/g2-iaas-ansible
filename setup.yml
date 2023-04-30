@@ -1,4 +1,5 @@
-- hosts: main
+- name: Play for initializing server
+  hosts: main
   roles:
     - essentials
     - swap
