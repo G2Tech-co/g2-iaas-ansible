@@ -3,7 +3,7 @@
     update_cache: true
     name: docker.io
     state: present
-  notify: restart docker
+  notify: Restart docker
 
 - name: /etc/docker directory
   ansible.builtin.file:
@@ -20,7 +20,7 @@
     owner: root
     group: root
     mode: '644'
-  notify: restart docker
+  notify: Restart docker
 
 - name: Ensure Docker is started and enabled at boot
   ansible.builtin.systemd:
@@ -37,7 +37,7 @@
     update_cache: true
     name: docker-compose
     state: present
-  notify: restart docker
+  notify: Restart docker
 
 - name: Include docker-compose tasks
   ansible.builtin.include_tasks: docker-compose.yml
