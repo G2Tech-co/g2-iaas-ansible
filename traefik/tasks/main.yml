@@ -26,3 +26,4 @@
 
 - name: Run traefik
   ansible.builtin.shell: "cd /root/services/traefik && docker-compose down && docker-compose up -d"
+  changed_when: true
