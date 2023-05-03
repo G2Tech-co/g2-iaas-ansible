@@ -13,7 +13,7 @@
     mode: '700'
 
 - name: Create docker network 'web'
-  community.general.docker_network:
+  docker_network:
     name: web
 
 - name: Copy acme.json
