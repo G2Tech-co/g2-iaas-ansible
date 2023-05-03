@@ -22,7 +22,7 @@
       MYSQL_PASSWORD: "{{ mysql_password }}"
       MYSQL_DATABASE: "{{ mysql_database }}"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 1m30s
       timeout: 10s
       retries: 3
