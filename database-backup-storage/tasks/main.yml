@@ -11,7 +11,7 @@
     mode: '0755'
 
 - name: Set minio alias
-  ansible.builtin.command: ~/s3/mc alias set {{ ALIAS }} {{ S3_ENDPOINT }} {{ ACCESS_KEY }} {{ SECRET_KEY }}
+  ansible.builtin.command: ~/s3/mc alias set {{ alias }} {{ s3_endpoint }} {{ access_key }} {{ secret_key }}
   changed_when: true
 
 - name: Install mysqldump

@@ -1,4 +1,4 @@
-S3_ENDPOINT: ""
-ACCESS_KEY: ""
-SECRET_KEY: ""
-ALIAS: "backup"
+s3_endpoint: ""
+access_key: ""
+secret_key: ""
+alias: "backup"
