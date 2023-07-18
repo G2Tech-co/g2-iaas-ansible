@@ -5,12 +5,12 @@
 ## Roles
 - [x] Essentials
 - [x] Swap
-- [x] Docker
-- [x] Traefik
-- [x] MySQL
-- [x] Redis
-- [x] Node exporter
-- [x] Gitlab runner
+- [x] Docker (latest)
+- [x] Traefik (traefik:2.9)
+- [x] MySQL (mysql:8.0-debian)
+- [x] Redis (redis:7.0-bullseye)
+- [x] Node exporter (latest)
+- [x] Gitlab runner (latest)
 - [x] Reboot
 
 ## Setup
@@ -31,7 +31,7 @@ ansible-playbook setup.yml
 ansible-vault encrypt_string --name 'password_name'
 ```
 
-## Defaults
+## Must changes
 ```
 Swap: 2G
 Traefik: auth
