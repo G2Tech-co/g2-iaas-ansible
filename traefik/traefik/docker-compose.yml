@@ -20,6 +20,7 @@ services:
       - "--providers.file.directory=/configs/"
       - "--providers.file.watch=true"
 
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http"
       - "--certificatesresolvers.letsencrypt.acme.email=${letsencrypt_email}"
