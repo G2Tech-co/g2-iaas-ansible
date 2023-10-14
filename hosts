@@ -1,6 +1,6 @@
 main:
   hosts:
-    semaphore:
+    target:
       ansible_host: sample
       ansible_user: root
       ansible_port: 22
