@@ -10,6 +10,7 @@
     #     state: present
 
     - name: Copy Docker Compose file
+        name: tarpit
       copy:
         src: |
           version: "2.1"
@@ -38,7 +39,7 @@
       args:
         chdir: /opt/endlessh
 
-    - name: Ensure Docker service is started
-      service:
-        name: docker
-        state: started
+    # - name: Ensure Docker service is started
+    #   service:
+    #     name: docker
+    #     state: started
