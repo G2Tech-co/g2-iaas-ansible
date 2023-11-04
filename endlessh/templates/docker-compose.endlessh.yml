@@ -11,8 +11,8 @@ services:
       - MAXCLIENTS=4096 #optional
       - LOGFILE=false #optional
       - BINDFAMILY= #optional
-    volumes:
-      - /path/to/appdata:/config #optional
+    # volumes:
+    #   - /path/to/appdata:/config #optional
     ports:
       - 22:2222
     restart: unless-stopped
