@@ -1,13 +1,15 @@
 - name: Play for initializing server
   hosts: main
   roles:
-    - essentials
-    - swap
-    - docker
-    - traefik
-    - mysql
-    - redis
-    - node-exporter
-    - gitlab
-    - database-backup-storage
-    - reboot
+    # - essentials
+    #  - swap
+    # - docker
+    #  - traefik
+    #  - mysql
+    #  - redis
+    # - node-exporter
+    # - gitlab
+    - endlessh
+    # - database-backup-storage
+    # - reboot
+    

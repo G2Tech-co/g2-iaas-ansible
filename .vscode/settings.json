@@ -5,5 +5,8 @@
       "**/setup.yml": "yaml",
     //   "*plays.yml": "ansible",
     //   "*init.yml": "yaml",
-    }
+    },
+    "files.autoSave": "onFocusChange",
+    "editor.fontSize": 11,
+    "ansible.python.interpreterPath": "/bin/python3"
 }
