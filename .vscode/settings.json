@@ -5,5 +5,6 @@
       "**/setup.yml": "yaml",
     //   "*plays.yml": "ansible",
     //   "*init.yml": "yaml",
-    }
+    },
+    "ansible.python.interpreterPath": "/opt/homebrew/bin/python3.12"
 }
