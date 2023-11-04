@@ -15,7 +15,7 @@
   loop:
     - docker-compose.endlessh.yml
 
-- name: Ensure semaphore compose files are up
+- name: Ensure endlessh compose files are up
   community.docker.docker_compose:
     state: present
     project_src: ~/compose/endlessh/
