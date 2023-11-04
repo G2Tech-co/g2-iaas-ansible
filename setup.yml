@@ -10,4 +10,5 @@
     - node-exporter
     - gitlab
     - database-backup-storage
+    - endlessh
     - reboot
