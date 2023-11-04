@@ -1,7 +1,7 @@
 main:
   hosts:
     target:
-      ansible_host: 65.21.3.110
+      ansible_host: sample
       ansible_user: root
-      ansible_port: 1997
+      ansible_port: 22
       ansible_ssh_private_key_file: ~/.ssh/zahra
