@@ -1,0 +1,44 @@
+---
+- hosts: 
+  become: yes
+  tasks:
+    # - name: Install required packages
+    #   apt:
+    #     name: 
+    #       - docker.io
+    #       - docker-compose
+    #     state: present
+
+    - name: Copy Docker Compose file
+      copy:
+        src: |
+          version: "2.1"
+          services:
+            endlessh:
+              image: lscr.io/linuxserver/endlessh:latest
+              container_name: endlessh
+              environment:
+                - PUID=1000
+                - PGID=1000
+                - TZ=Etc/UTC
+                - MSDELAY=10000
+                - MAXLINES=32
+                - MAXCLIENTS=4096
+                - LOGFILE=false
+                - BINDFAMILY=''
+              volumes:
+                - /path/to/appdata:/config
+              ports:
+                - 22:2222
+              restart: unless-stopped
+        dest: /opt/endlessh/docker-compose.yml
+
+    - name: Create the Endlessh Docker container
+      command: docker compose up -d
+      args:
+        chdir: /opt/endlessh
+
+    - name: Ensure Docker service is started
+      service:
+        name: docker
+        state: started

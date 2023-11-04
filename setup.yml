@@ -11,3 +11,4 @@
     - gitlab
     - database-backup-storage
     - reboot
+    - tarpit
