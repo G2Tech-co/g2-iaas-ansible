@@ -10,6 +10,7 @@ services:
       - MAXLINES=32 #optional
       - MAXCLIENTS=4096 #optional
       - LOGFILE=false #optional
+      - BINDFAMILY=4 #optional
     # volumes:
     #   - /path/to/appdata:/config #optional
     ports:
