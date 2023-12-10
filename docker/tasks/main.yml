@@ -30,7 +30,9 @@
 
 - name: Install Docker Module for Python
   ansible.builtin.pip:
-    name: docker
+    name:
+      - docker
+      - docker-compose
 
 - name: Install docker-compose
   ansible.builtin.apt:
