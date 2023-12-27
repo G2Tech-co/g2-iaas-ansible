@@ -6,17 +6,28 @@ services:
     restart: unless-stopped
     command:
       - "--log.level=ERROR"
+
       - "--accesslog=true"
+      - "--accesslog.bufferingsize=250"
+
       - "--serverstransport.insecureskipverify=true"
+
+      - "--ping=true"
 
       - "--api=true"
       - "--api.dashboard=true"
+
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
+      - "--entrypoints.metrics.address=:8082"
+
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.entryPoint=metrics"
 
       - "--providers.docker=true"
       - "--providers.docker.network=web"
       - "--providers.docker.exposedbydefault=false"
+
       - "--providers.file.directory=/configs/"
       - "--providers.file.watch=true"
 
