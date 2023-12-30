@@ -24,6 +24,9 @@ pip install -r requirements.txt
 Add ssh config host name to `hosts`
 ```
 ansible-playbook setup.yml
+
+ansible localhost -m ping
+ansible all -i ./hosts -m ping
 ```
 
 ## Vault
