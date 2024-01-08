@@ -12,7 +12,7 @@ BUCKET_SUBDIR="sub"
 
 mkdir -p $DEST
 
-nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASS --ignore-table=$DB_NAME.telescope_entries --single-transaction --opt $DB_NAME | gzip > "$DEST"/dbbackup-$(date -I).gz
+nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASS --ignore-table=$DB_NAME.telescope_entries --single-transaction --opt --skip-lock-tables $DB_NAME | gzip > "$DEST"/dbbackup-$(date -I).gz
 
 ~/s3/mc cp $DEST/dbbackup-$(date -I).gz backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
