@@ -24,4 +24,13 @@ nice mysqldump -h $DB_HOST --port $DB_PORT -u $DB_USER -p$DB_PASS --ignore-table
 
 ~/s3/mc rm --force --recursive --older-than 60d backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
+if [ $? -eq 0 ]; then
+  echo "Database backup successful"
+  FILESIZE=$(stat -c%s "$DEST/dbbackup-$(date -I).gz")
+  curl -s --max-time 10 -d "chat_id=-0000000000000&disable_web_page_preview=1&text=Database backup successful $FILESIZE bytes" https://api.telegram.org/bot<TOKEN>/sendMessage > /dev/null
+else
+  echo "Error: Database backup failed"
+  curl -s --max-time 10 -d "chat_id=-0000000000000&disable_web_page_preview=1&text=Database backup failed $FILESIZE bytes" https://api.telegram.org/bot<TOKEN>/sendMessage > /dev/null
+fi
+
 rm -rf ~/db_backups
