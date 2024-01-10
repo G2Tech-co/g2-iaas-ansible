@@ -33,4 +33,4 @@
       - '--path.rootfs=/rootfs'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-      - '--web.config=/etc/node_exporter/config.yml'
+      - '--web.config.file=/etc/node_exporter/config.yml'
