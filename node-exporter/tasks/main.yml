@@ -1,3 +1,17 @@
+- name: Services directory
+  ansible.builtin.file:
+    path: /root/services/
+    state: directory
+    mode: '744'
+
+- name: Copy node-exporter
+  ansible.builtin.copy:
+    src: node-exporter
+    dest: /root/services/
+    owner: root
+    group: root
+    mode: '744'
+
 - name: Install node-exporter
   community.docker.docker_container:
     name: node-exporter
@@ -13,8 +27,10 @@
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"
       - "/:/rootfs:ro"
+      - "/root/services/node-exporter/config.yml:/etc/node_exporter/config.yml"
     command:
       - '--path.procfs=/host/proc'
       - '--path.rootfs=/rootfs'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--web.config=/etc/node_exporter/config.yml'
