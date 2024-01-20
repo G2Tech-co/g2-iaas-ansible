@@ -1,21 +1,28 @@
 - name: Check whether "/swapfile1" exists
-  register: id_check_swap
   ansible.builtin.stat:
     path: /swapfile1
+  register: id_check_swap
 
-- name: Fail it if "/swapfile1" exists
-  ansible.builtin.fail:
-    msg: Swap file exists
-  when: id_check_swap.stat.exists
+- name: Print a debug message
+  ansible.builtin.debug:
+    msg: "Path exists and is a regular file"
+  when: id_check_swap.stat.isreg is defined and id_check_swap.stat.isreg
+
+#- name: Fail it if "/swapfile1" exists
+#  ansible.builtin.fail:
+#    msg: Swap file exists
+#  when: id_check_swap.stat.exists
 
 - name: Allocate the swap file
   ansible.builtin.command: fallocate -l {{ swap_vars.size }} /swapfile1
   changed_when: true
+  when: id_check_swap.stat.isreg == False
 
 - name: Change permission of the swap file
   ansible.builtin.file:
     path: /swapfile1
     mode: "600"
+  when: id_check_swap.stat.isreg == False
 
 - name: Create a swap area on the swap file
   ansible.builtin.command: mkswap /swapfile1
@@ -24,12 +31,14 @@
 - name: Activate the swap file as a swap memory
   ansible.builtin.command: swapon /swapfile1
   changed_when: true
+  when: id_check_swap.stat.isreg == False
 
 - name: Add to fstab
   ansible.builtin.lineinfile:
     dest: /etc/fstab
     regexp: "/swapfile1"
     line: "/swapfile1 none swap sw 0 0"
+  when: id_check_swap.stat.isreg == False
 
 # - name: Append configuration in /etc/fstab
 #   ansible.builtin.command: echo '/swapfile1 none swap sw 0 0' | sudo tee -a /etc/fstab
