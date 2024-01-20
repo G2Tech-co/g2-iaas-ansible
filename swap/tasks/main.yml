@@ -27,6 +27,7 @@
 - name: Create a swap area on the swap file
   ansible.builtin.command: mkswap /swapfile1
   changed_when: true
+  when: id_check_swap.stat.isreg == False
 
 - name: Activate the swap file as a swap memory
   ansible.builtin.command: swapon /swapfile1
