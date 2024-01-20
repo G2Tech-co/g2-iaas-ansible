@@ -1,5 +1,7 @@
 # G2 Ansible IaC (Infrastructure as code)
 
+Idempotent playbooks
+
 [Ansible doc](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 ## Roles
