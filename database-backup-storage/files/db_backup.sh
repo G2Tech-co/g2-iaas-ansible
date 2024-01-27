@@ -6,7 +6,7 @@ DEST=~/db_backups
 DB_HOST="127.0.0.1"
 DB_PORT=3306
 DB_USER="user"
-DB_PASS="'pass'"
+DB_PASS="pass"
 DB_NAME="dbname"
 BUCKET_SUBDIR="sub"
 
