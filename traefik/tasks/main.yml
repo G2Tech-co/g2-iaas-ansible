@@ -24,13 +24,13 @@
     mode: '600'
     state: touch
 
-#- name: Run traefik
-#  ansible.builtin.shell: "cd /root/services/traefik && docker-compose down && docker-compose up -d"
-#  changed_when: true
+- name: Run traefik
+ ansible.builtin.shell: "cd /root/services/traefik && docker-compose down && docker-compose up -d"
+ changed_when: true
 
-- name: Ensure traefik compose files are up
-  community.docker.docker_compose:
-    state: present
-    project_src: ~/services/traefik/
-    files:
-      - docker-compose.yml
+# - name: Ensure traefik compose files are up
+#   community.docker.docker_compose:
+#     state: present
+#     project_src: ~/services/traefik/
+#     files:
+#       - docker-compose.yml
