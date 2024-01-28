@@ -16,30 +16,30 @@
 - name: Allocate the swap file
   ansible.builtin.command: fallocate -l {{ swap_vars.size }} /swapfile1
   changed_when: true
-  when: id_check_swap.stat.isreg == False
+  when: id_check_swap.stat.isreg is not defined
 
 - name: Change permission of the swap file
   ansible.builtin.file:
     path: /swapfile1
     mode: "600"
-  when: id_check_swap.stat.isreg == False
+  when: id_check_swap.stat.isreg is not defined
 
 - name: Create a swap area on the swap file
   ansible.builtin.command: mkswap /swapfile1
   changed_when: true
-  when: id_check_swap.stat.isreg == False
+  when: id_check_swap.stat.isreg is not defined
 
 - name: Activate the swap file as a swap memory
   ansible.builtin.command: swapon /swapfile1
   changed_when: true
-  when: id_check_swap.stat.isreg == False
+  when: id_check_swap.stat.isreg is not defined
 
 - name: Add to fstab
   ansible.builtin.lineinfile:
     dest: /etc/fstab
     regexp: "/swapfile1"
     line: "/swapfile1 none swap sw 0 0"
-  when: id_check_swap.stat.isreg == False
+  when: id_check_swap.stat.isreg is not defined
 
 # - name: Append configuration in /etc/fstab
 #   ansible.builtin.command: echo '/swapfile1 none swap sw 0 0' | sudo tee -a /etc/fstab
