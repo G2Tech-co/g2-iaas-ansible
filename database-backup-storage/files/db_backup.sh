@@ -26,7 +26,7 @@ if [ $? -eq 0 ]; then
   echo "Database backup successful"
   FILESIZE=$(stat -c%s "$DEST/dbbackup-$(date -I).gz")
   MB=$(echo "$FILESIZE" | numfmt --to=iec)
-  curl -s --max-time 10 -d "chat_id=-0000000000000&disable_web_page_preview=1&text=Database backup successful $FILESIZE bytes, $MB mb 💾 " https://api.telegram.org/bot<TOKEN>/sendMessage > /dev/null
+  curl -s --max-time 10 -d "chat_id=-0000000000000&disable_web_page_preview=1&text=Database backup successful $FILESIZE bytes, $MB 💾 " https://api.telegram.org/bot<TOKEN>/sendMessage > /dev/null
 else
   echo "Error: Database backup failed"
   curl -s --max-time 10 -d "chat_id=-0000000000000&disable_web_page_preview=1&text=Database backup failed 💾 " https://api.telegram.org/bot<TOKEN>/sendMessage > /dev/null
@@ -34,4 +34,4 @@ fi
 
 # ~/s3/mc rm --force --recursive --older-than 60d backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
-rm -rf ~/db_backups
+rm -f ~/db_backups/*
