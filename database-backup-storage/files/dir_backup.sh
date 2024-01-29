@@ -9,7 +9,7 @@ BUCKET_SUBDIR="sub"
 mkdir -p $DEST
 
 TIMESTAMP=$(date -Ihours)
-nice tar -zcvf --exclude='./folder' "$DEST"/dirbackup-$TIMESTAMP.tar.gz $TARGET
+nice tar --exclude='./folder' -zcvf "$DEST"/dirbackup-$TIMESTAMP.tar.gz $TARGET
 
 ~/s3/mc cp $DEST/dirbackup-$TIMESTAMP.tar.gz backup/backup/g2-backup-dbs/$BUCKET_SUBDIR/
 
