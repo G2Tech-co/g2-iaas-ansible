@@ -1,0 +1,7 @@
+[mysqld]
+innodb_buffer_pool_size=2G
+innodb_buffer_pool_instances=8
+
+long_query_time=5
+slow_query_log=ON
+slow_query_log_file=/var/log/mysql/slow_query.log

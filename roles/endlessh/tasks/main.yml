@@ -1,0 +1,22 @@
+- name: Ensure directories exists
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - /opt/endlessh/
+
+- name: Ensure docker-compose file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/endlessh/
+    mode: '644'
+  loop:
+    - docker-compose.yml
+
+- name: Ensure endlessh compose files are up
+  community.docker.docker_compose:
+    state: present
+    project_src: /opt/endlessh/
+    files:
+      - docker-compose.yml

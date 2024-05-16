@@ -1,0 +1,35 @@
+- name: Ensure directories exists
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - /opt/traefik/
+    - /opt/traefik/configs/
+
+- name: Ensure docker-compose file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/traefik/
+    mode: '644'
+  loop:
+    - docker-compose.yml
+
+- name: Ensure acme.json file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/traefik/
+    mode: '600'
+  loop:
+    - acme.json
+
+- name: Create docker network 'web'
+  community.docker.docker_network:
+    name: web
+
+- name: Traefik compose up
+  community.docker.docker_compose:
+    state: present
+    project_src: /opt/traefik/
+    files:
+      - docker-compose.yml

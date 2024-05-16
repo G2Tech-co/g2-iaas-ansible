@@ -1,3 +1,0 @@
-# echo 1234 | htpasswd -inBC 10 "" | tr -d ':\n'
-basic_auth_users:
-  admin: $2y$10$DflJBSLBlS2z3d9rk6pdk.EadVxBVlXc084wPgCqoaW2T1KblOjyi

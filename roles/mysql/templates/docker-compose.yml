@@ -1,0 +1,57 @@
+services:
+  mysql:
+    container_name: {{mysql.container_name}}
+    image: {{mysql.docker_image}}:{{mysql.docker_image_tag}}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:33306:3306"
+    environment:
+      TZ: "{{ mysql.timezone }}"
+      MYSQL_ROOT_PASSWORD: "{{ mysql.root_password }}"
+      MYSQL_USER: "{{ mysql.user }}"
+      MYSQL_PASSWORD: "{{ mysql.password }}"
+      MYSQL_DATABASE: "{{ mysql.database }}"
+    volumes:
+      - "./config-file.cnf:/etc/mysql/conf.d/config-file.cnf"
+      - "mysql_data:/var/lib/mysql"
+    networks:
+      - mysql_exporter
+      - web
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    labels:
+      - "traefik.enable=false"
+
+  mysqld-exporter:
+    image: prom/mysqld-exporter:v0.15.1
+    container_name: mysqld-exporter
+    environment:
+      - MYSQLD_EXPORTER_PASSWORD={{ mysql.password }}
+    command:
+      - --mysqld.address=mysql:3306
+      - --mysqld.username={{ mysql.user }}
+      - --web.config.file=/cfg/webconfig.yml
+    networks:
+      - mysql_exporter
+    volumes:
+      - ./webconfig.yml:/cfg/webconfig.yml
+    ports:
+      - "0.0.0.0:8084:9104"
+    depends_on:
+      - mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  mysql_exporter:
+  web:
+    external: true
+
+volumes:
+  mysql_data:

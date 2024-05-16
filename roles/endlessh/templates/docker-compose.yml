@@ -1,0 +1,21 @@
+services:
+  endlessh:
+    image: shizunge/endlessh-go:latest
+    container_name: endlessh
+    restart: unless-stopped
+    command:
+      - "-enable_prometheus"
+      - "-geoip_supplier=ip-api"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    ports:
+      - "0.0.0.0:22:2222"
+      - "0.0.0.0:8090:2112"

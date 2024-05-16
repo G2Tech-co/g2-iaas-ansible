@@ -1,0 +1,26 @@
+services:
+  node_exporter:
+    image: prom/node-exporter:v1.8.0
+    container_name: node_exporter
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:8088:9100"
+    command:
+      - "--web.config.file=/users.yml"
+      - "--path.rootfs=/host"
+      - "--collector.disable-defaults"
+      - "--collector.cpu"
+      - "--collector.meminfo"
+      - "--collector.netdev"
+      - "--collector.diskstats"
+      - "--collector.filesystem"
+      # - "--collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)"
+    pid: host
+    volumes:
+      - '/:/host:ro,rslave'
+      - './users.yml:/users.yml'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"

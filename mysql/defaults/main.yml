@@ -1,7 +1,0 @@
-mysql_volume: "projectVolume"
-mysql_network: "web"
-mysql_timezone: "Asia/Tehran"
-mysql_database: "projectDatabase"
-mysql_user: "databaseUser"
-mysql_password: ""
-mysql_root_password: ""

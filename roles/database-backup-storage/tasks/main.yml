@@ -1,0 +1,44 @@
+- name: Ensure directories exists
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - /opt/scripts/
+    - /opt/scripts/db_backups/
+    - /opt/scripts/s3/
+
+- name: Install mysqldump
+  ansible.builtin.apt:
+    name:
+      - mysql-client
+    state: present
+    update_cache: true
+    allow_unauthenticated: true
+
+- name: Download mc
+  ansible.builtin.get_url:
+    url: https://dl.min.io/client/mc/release/linux-amd64/mc
+    dest: /opt/scripts/s3/mc
+    mode: '754'
+
+- name: Set minio alias
+  ansible.builtin.command: /opt/scripts/s3/mc alias set {{ backup.alias }} {{ backup.s3_endpoint }} {{ backup.access_key }} {{ backup.secret_key }}
+  changed_when: true
+
+- name: Ensure backup file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/scripts/
+    mode: '754'
+  loop:
+    - db_backup.sh
+    - dir_backup.sh
+
+- name: Add backup to crontab
+  ansible.builtin.cron:
+    name: mysql dump all databases
+    minute: "01"
+    hour: "3"
+    user: root
+    job: "/opt/scripts/db_backup.sh > /dev/null 2>&1"

@@ -1,0 +1,15 @@
+- name: Directory /etc/docker
+  ansible.builtin.file:
+    path: /etc/docker
+    state: directory
+    owner: root
+    group: root
+    mode: '755'
+
+- name: Copy daemon.json
+  ansible.builtin.copy:
+    src: files/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '644'

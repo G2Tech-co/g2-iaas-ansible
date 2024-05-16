@@ -1,0 +1,43 @@
+# Traefik
+traefik:
+  hostname: "traefik.example.com"
+  container_name: traefik
+  docker_image: traefik
+  docker_image_tag: v3.0.0
+  service: "traefikpanel"
+  letsencrypt_email: "example+letsencrypt@gmail.com"
+  traefik_dashboard_username: "admin"
+  traefik_dashboard_password: "$$2y$$05$$xzh.ILuo72lYNOuD9DOY6OjgQ5xqJmbzeydASSk7hHvwX.SFVaZ0q"
+  # echo $(htpasswd -nB user) | sed -e s/\\$/\\$\\$/g
+  # 1234
+
+# MySQL
+mysql:
+  docker_image: mysql
+  docker_image_tag: 8.0-debian
+  container_name: mysql
+  user: "DefaultUser"
+  password: "HardPassWordHere"
+  root_password: "HardPassWordHere"
+  database: "DefaultName"
+  timezone: "Asia/Tehran"
+  volume: "mysql_volume"
+  exporter_password: "$2y$10$5KWwiva/WpBqfYe2edIYhulhtXehM6TQl9YdlptsaB2n918QhhcXW"
+
+# Redis
+redis:
+  docker_image: redis
+  docker_image_tag: 7.2-bookworm
+  container_name: redis
+  password: "HardPassWordHere"
+
+# Node exporter
+node_exporter:
+  password: "$2y$10$98vNJ8bnR.pOoftAu51G4ODisZL6R9kRDiAXwLjvYVDM2W.OWsoCW"
+
+# Backup
+backup:
+  s3_endpoint: "https://play.min.io"
+  access_key: "Q3AM3UQ867SPQQA43P2F"
+  secret_key: "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+  alias: "backup"

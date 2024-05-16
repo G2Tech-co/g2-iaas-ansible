@@ -1,0 +1,24 @@
+- name: Ensure directories exists
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - /opt/mysql/
+
+- name: Ensure docker-compose file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/mysql/
+    mode: '644'
+  loop:
+    - docker-compose.yml
+    - config-file.cnf
+    - webconfig.yml
+
+- name: Mysql compose up
+  community.docker.docker_compose:
+    state: present
+    project_src: /opt/mysql/
+    files:
+      - docker-compose.yml

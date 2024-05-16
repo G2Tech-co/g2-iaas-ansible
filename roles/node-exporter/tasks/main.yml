@@ -1,0 +1,23 @@
+- name: Ensure directories exists
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - /opt/node_exporter/
+
+- name: Ensure docker-compose file has been updated
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /opt/node_exporter/
+    mode: '644'
+  loop:
+    - docker-compose.yml
+    - users.yml
+
+- name: Node exporter compose up
+  community.docker.docker_compose:
+    state: present
+    project_src: /opt/node_exporter/
+    files:
+      - docker-compose.yml

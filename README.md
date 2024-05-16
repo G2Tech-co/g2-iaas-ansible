@@ -28,7 +28,7 @@ Add ssh config host name to `hosts`
 ansible-playbook setup.yml
 
 ansible localhost -m ping
-ansible all -i ./hosts -m ping
+ansible all -i ./inventories/hosts -m ping
 ```
 
 ## Vault

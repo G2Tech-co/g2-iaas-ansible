@@ -1,9 +1,12 @@
 - name: Play for initializing server
-  hosts: main
+  hosts: "main"
+  vars_files:
+    - "vars/main.yml"
   roles:
     - essentials
     - swap
     - docker
+    - geerlingguy.docker
     - traefik
     - mysql
     - redis

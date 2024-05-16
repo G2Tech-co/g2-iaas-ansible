@@ -1,0 +1,51 @@
+services:
+  redis:
+    container_name: {{redis.container_name}}
+    image: {{redis.docker_image}}:{{redis.docker_image_tag}}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - "redis_data:/data"
+    networks:
+      - redis_exporter
+      - web
+    command:
+      - "redis-server"
+      - "--requirepass"
+      - "{{ redis.password }}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    labels:
+      - "traefik.enable=false"
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.59.0
+    container_name: {{redis.container_name}}_exporter
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:8086:9121"
+    environment:
+      - REDIS_ADDR=redis:6379
+      - REDIS_USER=null
+      - REDIS_PASSWORD={{ redis.password }}
+    networks:
+      - redis_exporter
+    depends_on:
+      - redis
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  redis_exporter:
+  web:
+    external: true
+
+volumes:
+  redis_data:

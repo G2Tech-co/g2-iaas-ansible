@@ -1,0 +1,12 @@
+- name: Install Docker Module for Python
+  ansible.builtin.pip:
+    name:
+      - PyYAML<6,>=3.10
+      - jsonschema<4,>=2.5.1
+      - docker<=6.1.3
+      - docker-compose<2.0.0
+  environment:
+    PIP_BREAK_SYSTEM_PACKAGES: 1
+
+- name: Include docker tasks
+  ansible.builtin.include_tasks: docker.yml

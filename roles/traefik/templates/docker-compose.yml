@@ -1,0 +1,79 @@
+services:
+  traefik:
+    container_name: {{traefik.container_name}}
+    image: {{traefik.docker_image}}:{{traefik.docker_image_tag}}
+    restart: unless-stopped
+    command:
+      - "--log.level=ERROR"
+
+      - "--accesslog=true"
+      - "--accesslog.bufferingsize=250"
+
+      - "--serverstransport.insecureskipverify=true"
+
+      - "--ping=true"
+
+      - "--api=true"
+      - "--api.dashboard=true"
+
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
+      - "--entrypoints.metrics.address=:8082"
+
+      - "--entryPoints.https.forwardedHeaders.insecure"
+
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+
+      - "--providers.docker=true"
+      - "--providers.docker.network=web"
+      - "--providers.docker.exposedbydefault=false"
+
+      - "--providers.file.directory=/configs/"
+      - "--providers.file.watch=true"
+
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http"
+      - "--certificatesresolvers.letsencrypt.acme.email={{traefik.letsencrypt_email}}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=acme.json"
+
+      - "--global.sendAnonymousUsage=false"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./acme.json:/acme.json"
+      - "./configs/:/configs/"
+    networks:
+      - web
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{traefik.service}}.entrypoints=http,https"
+      - "traefik.http.routers.{{traefik.service}}.rule=Host(`{{traefik.hostname}}`)"
+      - "traefik.http.routers.{{traefik.service}}.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.{{traefik.service}}.service=api@internal"
+
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+      - "traefik.http.routers.redirects.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.redirects.entrypoints=http"
+      - "traefik.http.routers.redirects.middlewares=redirect-to-https"
+
+      - "traefik.http.middlewares.{{traefik.service}}-auth.basicauth.users={{traefik.traefik_dashboard_username}}:{{traefik.traefik_dashboard_password}}"
+      # - "traefik.http.routers.{{traefik.service}}.middlewares={{traefik.service}}-auth"
+
+      - "traefik.http.middlewares.{{traefik.service}}-ratelimit.ratelimit.average=100"
+      - "traefik.http.middlewares.{{traefik.service}}-ratelimit.ratelimit.burst=200"
+      - "traefik.http.middlewares.{{traefik.service}}-ratelimit.ratelimit.period=1m"
+      - "traefik.http.routers.{{traefik.service}}.middlewares={{traefik.service}}-ratelimit,{{traefik.service}}-auth"
+
+networks:
+  web:
+    external: true

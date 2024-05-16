@@ -1,0 +1,5 @@
+basic_auth_users:
+  admin: {{node_exporter.password}}
+
+# htpasswd -nBC 10 "" | tr -d ':\n'
+# 1234
