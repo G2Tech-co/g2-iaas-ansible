@@ -4,8 +4,11 @@ services:
     container_name: endlessh
     restart: unless-stopped
     command:
-      - "-enable_prometheus"
-      - "-geoip_supplier=ip-api"
+      - -interval_ms=1000
+      - -logtostderr
+      - -v=1
+      - -enable_prometheus
+      - -geoip_supplier=ip-api
     logging:
       driver: "json-file"
       options:
